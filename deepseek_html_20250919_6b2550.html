@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdul Rizwan - Professional Resume Templates</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .template {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .template:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .template-img {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(75, 108, 183, 0.85) 0%, rgba(24, 40, 72, 0.85) 100%);
+            opacity: 0.9;
+        }
+        
+        .template-img span {
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .template-content {
+            padding: 25px;
+        }
+        
+        .template-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .template-desc {
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .template-subtitle {
+            font-weight: 600;
+            color: #4b6cb7;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .template-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .template-button:hover {
+            background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            margin: 40px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            color: #2c3e50;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            background: #eef2f7;
+            transform: translateY(-3px);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            color: #4b6cb7;
+            margin-bottom: 20px;
+        }
+        
+        .feature h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #6c757d;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        @media (max-width: 768px) {
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .features {
+                padding: 30px 20px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Professional Resume Templates</h1>
+            <p>Select from our professionally designed templates to showcase your skills and experience in the best possible way</p>
+        </header>
+        
+        <div class="template-grid">
+            <div class="template animate">
+                <div class="template-img" style="background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);">
+                    <span>Modern Professional</span>
+                </div>
+                <div class="template-content">
+                    <h3>Modern Professional</h3>
+                    <p class="template-desc">Modern resume template with clean layout, professional typography, and organized sections</p>
+                    <p class="template-subtitle">Clean, contemporary layout that stands out</p>
+                    <button class="template-button">Use This Template</button>
+                </div>
+            </div>
+            
+            <div class="template animate delay-1">
+                <div class="template-img" style="background: linear-gradient(135deg, #f46b45 0%, #eea849 100%);">
+                    <span>Executive</span>
+                </div>
+                <div class="template-content">
+                    <h3>Executive</h3>
+                    <p class="template-desc">Executive resume template with sophisticated design, premium styling, and professional layout</p>
+                    <p class="template-subtitle">Sophisticated design for experienced professionals</p>
+                    <button class="template-button">Use This Template</button>
+                </div>
+            </div>
+            
+            <div class="template animate delay-2">
+                <div class="template-img" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffa8a8 100%);">
+                    <span>Creative</span>
+                </div>
+                <div class="template-content">
+                    <h3>Creative</h3>
+                    <p class="template-desc">Creative resume template with modern design elements, artistic layout, and visual appeal</p>
+                    <p class="template-subtitle">For those in design and creative fields</p>
+                    <button class="template-button">Use This Template</button>
+                </div>
+            </div>
+        </div>
+        
+        <section class="features">
+            <h2>Why Our Templates Stand Out</h2>
+            <div class="feature-grid">
+                <div class="feature animate">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>ATS Optimized</h3>
+                    <p>Designed to pass through Applicant Tracking Systems successfully</p>
+                </div>
+                <div class="feature animate delay-1">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Professional Design</h3>
+                    <p>Visually appealing layouts that impress recruiters</p>
+                </div>
+                <div class="feature animate delay-2">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Fully Responsive</h3>
+                    <p>Looks great on any device - desktop, tablet, or mobile</p>
+                </div>
+                <div class="feature animate delay-3">
+                    <i class="fas fa-customize"></i>
+                    <h3>Easy Customization</h3>
+                    <p>Change colors, fonts, and layouts with just a few clicks</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; 2023 Abdul Rizwan Resume Portfolio. All rights reserved.</p>
+            <p>Designed to showcase your skills and experience in the best possible way</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animation for templates
+        document.addEventListener('DOMContentLoaded', function() {
+            const templates = document.querySelectorAll('.template');
+            templates.forEach((template, index) => {
+                setTimeout(() => {
+                    template.style.opacity = 1;
+                    template.style.transform = 'translateY(0)';
+                }, 300 * index);
+            });
+            
+            // Animate features on scroll
+            const features = document.querySelectorAll('.feature');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            features.forEach(feature => {
+                feature.style.opacity = 0;
+                feature.style.transform = 'translateY(20px)';
+                feature.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(feature);
+            });
+            
+            // Template selection functionality
+            const templateButtons = document.querySelectorAll('.template-button');
+            templateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const templateName = this.closest('.template').querySelector('h3').textContent;
+                    alert(`You've selected the ${templateName} template! This would typically open the template editor.`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
