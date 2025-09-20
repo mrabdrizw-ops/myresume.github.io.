@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeForge | AI-Powered Resume Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #7e6dfa;
+            --primary-light: #9d8ffb;
+            --secondary: #ff6b95;
+            --dark: #121826;
+            --dark-light: #1f2937;
+            --text: #e5e7eb;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --border: #374151;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--dark-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--dark), var(--dark-light));
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+        
+        /* Steps Section */
+        .steps {
+            padding: 80px 0;
+            background-color: var(--dark-light);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--text);
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .step-card {
+            background-color: var(--dark);
+            border-radius: 12px;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Build Resume Section */
+        .build-resume {
+            padding: 80px 0;
+        }
+        
+        .form-container {
+            background-color: var(--dark-light);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--dark);
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* AI Summary Generator */
+        .ai-generator {
+            background-color: var(--dark);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .ai-generator h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* Template Selection */
+        .templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .template {
+            background-color: var(--dark);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .template:hover {
+            transform: scale(1.05);
+        }
+        
+        .template.selected {
+            border-color: var(--primary);
+        }
+        
+        .template-img {
+            height: 200px;
+            background: linear-gradient(45deg, #3a2f76, #6d5dc0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .template-name {
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* Resume Preview */
+        .resume-preview {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+            color: #333;
+            display: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .resume-preview h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-light);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-file-alt"></i>
+                    <span>ResumeForge</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#build">Build Resume</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <a href="#build" class="btn">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Create Professional Resumes with AI</h1>
+            <p>Our AI-powered resume builder helps students and professionals create ATS-friendly resumes that stand out from the crowd. Get hired faster with our modern templates.</p>
+            <a href="#build" class="btn">Build Your Resume Now</a>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps" id="about">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="step-number">1</div>
+                    <h3>AI Resume Creation</h3>
+                    <p>Our AI analyzes your experience and generates a complete professional resume tailored to your industry.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="step-number">2</div>
+                    <h3>Choose Template</h3>
+                    <p>Select from our modern, ATS-friendly templates designed to highlight your strengths.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="step-number">3</div>
+                    <h3>Download PDF</h3>
+                    <p>Download your resume as a PDF and start applying to your dream jobs immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Build Resume Section -->
+    <section class="build-resume" id="build">
+        <div class="container">
+            <h2 class="section-title">Build Your Resume</h2>
+            <div class="form-container">
+                <!-- Personal Details -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullname">Full Name</label>
+                            <input type="text" id="fullname" placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="jobtitle">Desired Job Title</label>
+                            <input type="text" id="jobtitle" placeholder="Software Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" placeholder="(123) 456-7890">
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="San Francisco, CA">
+                        </div>
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn (optional)</label>
+                            <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3>Education</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="school">School/University</label>
+                            <input type="text" id="school" placeholder="Stanford University">
+                        </div>
+                        <div class="form-group">
+                            <label for="degree">Degree</label>
+                            <input type="text" id="degree" placeholder="Bachelor of Science in Computer Science">
+                        </div>
+                        <div class="form-group">
+                            <label for="gradyear">Graduation Year</label>
+                            <input type="number" id="gradyear" placeholder="2023">
+                        </div>
+                        <div class="form-group">
+                            <label for="gpa">GPA (optional)</label>
+                            <input type="text" id="gpa" placeholder="3.8">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-section">
+                    <h3>Work Experience</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" placeholder="TechCorp Inc.">
+                        </div>
+                        <div class="form-group">
+                            <label for="jobtitle-exp">Job Title</label>
+                            <input type="text" id="jobtitle-exp" placeholder="Frontend Developer">
+                        </div>
+                        <div class="form-group">
+                            <label for="startdate">Start Date</label>
+                            <input type="month" id="startdate">
+                        </div>
+                        <div class="form-group">
+                            <label for="enddate">End Date</label>
+                            <input type="month" id="enddate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Job Description & Achievements</label>
+                        <textarea id="description" placeholder="Designed and implemented user interface components using React. Collaborated with the backend team to integrate RESTful APIs. Improved page load speed by 30% by optimizing assets and code."></textarea>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3>Skills</h3>
+                    <div class="form-group">
+                        <label for="skills">List your skills (separated by commas)</label>
+                        <input type="text" id="skills" placeholder="JavaScript, React, Node.js, HTML, CSS, Python">
+                    </div>
+                </div>
+
+                <!-- Template Selection -->
+                <div class="form-section">
+                    <h3>Choose a Template</h3>
+                    <div class="templates">
+                        <div class="template selected" data-template="modern">
+                            <div class="template-img">Modern</div>
+                            <div class="template-name">Modern</div>
+                        </div>
+                        <div class="template" data-template="professional">
+                            <div class="template-img">Professional</div>
+                            <div class="template-name">Professional</div>
+                        </div>
+                        <div class="template" data-template="creative">
+                            <div class="template-img">Creative</div>
+                            <div class="template-name">Creative</div>
+                        </div>
+                        <div class="template" data-template="minimalist">
+                            <div class="template-img">Minimalist</div>
+                            <div class="template-name">Minimalist</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="btn" onclick="generateResume()">
+                        <i class="fas fa-robot"></i> Generate Resume with AI
+                    </button>
+                </div>
+
+                <!-- Resume Preview -->
+                <div class="resume-preview" id="resume-preview">
+                    <h2>Your Resume Preview</h2>
+                    <div id="resume-content">
+                        <!-- AI-generated resume will appear here -->
+                    </div>
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn" onclick="downloadResume()">
+                            <i class="fas fa-download"></i> Download as PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#build">Build Resume</a>
+                <a href="#contact">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <p class="copyright">© 2023 ResumeForge. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Template Selection
+        const templates = document.querySelectorAll('.template');
+        templates.forEach(template => {
+            template.addEventListener('click', () => {
+                templates.forEach(t => t.classList.remove('selected'));
+                template.classList.add('selected');
+            });
+        });
+
+        // Generate Resume with AI
+        function generateResume() {
+            // Get form values
+            const fullName = document.getElementById('fullname').value || 'John Doe';
+            const jobTitle = document.getElementById('jobtitle').value || 'Professional';
+            const email = document.getElementById('email').value || 'john.doe@example.com';
+            const phone = document.getElementById('phone').value || '(123) 456-7890';
+            const location = document.getElementById('location').value || 'City, State';
+            const school = document.getElementById('school').value || 'University Name';
+            const degree = document.getElementById('degree').value || 'Degree Field';
+            const gradYear = document.getElementById('gradyear').value || '2023';
+            const company = document.getElementById('company').value || 'Company Name';
+            const jobTitleExp = document.getElementById('jobtitle-exp').value || 'Job Title';
+            const description = document.getElementById('description').value || 'Job description and achievements';
+            const skills = document.getElementById('skills').value || 'Skill 1, Skill 2, Skill 3';
+            
+            // Get selected template
+            const selectedTemplate = document.querySelector('.template.selected').getAttribute('data-template');
+            
+            // Generate resume content using AI simulation
+            const resumeContent = `
+                <div class="resume ${selectedTemplate}">
+                    <div class="resume-header">
+                        <h1>${fullName}</h1>
+                        <h2>${jobTitle}</h2>
+                        <p>${email} | ${phone} | ${location}</p>
+                    </div>
+                    <div class="resume-section">
+                        <h3>Summary</h3>
+                        <p>${generateAISummary(jobTitle, school, degree, company, jobTitleExp, skills)}</p>
+                    </div>
+                    <div class="resume-section">
+                        <h3>Education</h3>
+                        <h4>${school}</h4>
+                        <p>${degree}, Graduated ${gradYear}</p>
+                    </div>
+                    <div class="resume-section">
+                        <h3>Experience</h3>
+                        <h4>${company} - ${jobTitleExp}</h4>
+                        <p>${description}</p>
+                    </div>
+                    <div class="resume-section">
+                        <h3>Skills</h3>
+                        <p>${skills}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Display the resume preview
+            document.getElementById('resume-content').innerHTML = resumeContent;
+            document.getElementById('resume-preview').style.display = 'block';
+            
+            // Scroll to the preview
+            document.getElementById('resume-preview').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // AI-generated summary
+        function generateAISummary(jobTitle, school, degree, company, jobTitleExp, skills) {
+            // This is a simplified simulation of AI-generated content
+            return `Highly motivated ${jobTitle} with a ${degree} from ${school}. Experienced in ${jobTitleExp} at ${company} with expertise in ${skills}. Proven track record of achieving outstanding results and delivering projects on time. Strong problem-solving skills and excellent communication abilities.`;
+        }
+
+        // Download Resume as PDF
+        function downloadResume() {
+            const resumeElement = document.getElementById('resume-content');
+            
+            // Options for HTML2PDF
+            const options = {
+                margin: 10,
+                filename: 'my_resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Generate and download PDF
+            html2pdf().set(options).from(resumeElement).save();
+        }
+    </script>
+</body>
+</html>
